@@ -218,3 +218,11 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+
+
+# Ignore sensitive Google Cloud credentials
+backend/credentials.json
+
+# Ignore node_modules
+frontend/node_modules/
