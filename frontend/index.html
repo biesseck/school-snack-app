@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>School Snack Delivery</title>
+  <!-- Tailwind CSS CDN for quick styling -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- html5-qrcode library for camera barcode scanning -->
+  <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="bg-slate-100 min-h-screen text-slate-800 flex flex-col items-center p-4">
+
+  <!-- Header -->
+  <header class="w-full max-w-md bg-indigo-600 text-white p-4 rounded-xl shadow-md text-center mb-4">
+    <h1 class="text-xl font-bold">🍎 School Snack Pass</h1>
+    <p class="text-xs text-indigo-200 mt-1">MVP Mobile Delivery Scanner</p>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="w-full max-w-md bg-white rounded-xl shadow-md p-4 flex-1 flex flex-col justify-between">
+    
+    <!-- Status Feedback Banner -->
+    <div id="status-card" class="hidden mb-4 p-4 rounded-lg text-center font-medium shadow-inner">
+      <p id="status-message" class="text-sm"></p>
+      <p id="status-detail" class="text-xs mt-1 font-normal opacity-80"></p>
+    </div>
+
+    <!-- VIEW 1: Manual Student ID Input (DEFAULT ACTIVE) -->
+    <section id="view-manual" class="flex flex-col space-y-4 my-auto">
+      <div>
+        <label for="manual-id" class="block text-sm font-medium text-slate-700 mb-1">Enter Student ID</label>
+        <input type="text" id="manual-id" placeholder="e.g. STU-001" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-center uppercase tracking-wider focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+      </div>
+      <button onclick="submitManualDelivery()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2.5 rounded-lg transition">
+        Record Delivery
+      </button>
+    </section>
+
+    <!-- VIEW 2: Camera Scanner (HIDDEN BY DEFAULT) -->
+    <section id="view-scan" class="hidden flex-col items-center">
+      <div id="reader" class="w-full bg-slate-900 rounded-lg overflow-hidden border-2 border-slate-300 min-h-[260px] flex items-center justify-center">
+        <p class="text-white text-xs">Camera feed loading...</p>
+      </div>
+      <p class="text-xs text-slate-500 mt-3 text-center">Point your phone camera at a student QR code pass.</p>
+    </section>
+
+    <!-- VIEW 3: Admin / Generate Printable PDF -->
+    <section id="view-admin" class="hidden flex-col items-center justify-center space-y-4 my-auto text-center">
+      <div class="p-3 bg-indigo-50 text-indigo-600 rounded-full">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v2" />
+        </svg>
+      </div>
+      <h2 class="text-lg font-bold text-slate-800">Print Student QR Passes</h2>
+      <p class="text-xs text-slate-500 max-w-xs">Download a printable A4 PDF sheet with QR codes for all active students in Google Sheets.</p>
+      <button onclick="downloadPDF()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 rounded-lg transition shadow">
+        Download Printable PDF
+      </button>
+    </section>
+
+    <!-- Navigation Tabs -->
+    <nav class="w-full max-w-md flex bg-white rounded-xl shadow p-1 mb-4 space-x-1">
+      <button id="tab-manual" onclick="switchTab('manual')" class="flex-1 py-2 text-sm font-semibold rounded-lg bg-indigo-600 text-white transition shadow">
+        ⌨️ Manual ID
+      </button>
+      <!-- Scan QR INACTIVE (text-slate-600 hover:bg-slate-100) -->
+      <button id="tab-scan" onclick="switchTab('scan')" class="flex-1 py-2 text-sm font-semibold rounded-lg text-slate-600 hover:bg-slate-100 transition">
+        📷 Scan QR
+      </button>
+      <!-- Admin / QR Cards INACTIVE -->
+      <button id="tab-admin" onclick="switchTab('admin')" class="flex-1 py-2 text-sm font-semibold rounded-lg text-slate-600 hover:bg-slate-100 transition">
+        📄 QR Cards
+      </button>
+    </nav>
+
+  </main>
+
+  <footer class="mt-4 text-xs text-slate-400">
+    Backend API: <span id="api-status" class="font-mono text-amber-500">Connecting...</span>
+  </footer>
+
+  <script src="js/scanner.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

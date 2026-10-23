@@ -1,0 +1,11 @@
+# Create and activate environment
+conda create -n school-snack-ui -c conda-forge nodejs=20 -y
+conda activate school-snack-ui
+
+
+# RUNNING FRONTEND
+cd school-snack-app\frontend
+npx serve -l 3000
+
+# TESTING LOCALLY IN BROWSER
+http://localhost:3000
