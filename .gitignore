@@ -223,6 +223,7 @@ __marimo__/
 
 # Ignore sensitive Google Cloud credentials
 backend/credentials.json
+backend/database.db
 
 # Ignore node_modules
 frontend/node_modules/
