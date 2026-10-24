@@ -21,7 +21,7 @@ Antes de iniciar, certifique-se de ter instalado em sua máquina:
 Abra o terminal ou prompt de comando e execute:
 
 ```
-git clone https://github.com/SEU-USUARIO/school-snack-app.git
+git clone https://github.com/biesseck/school-snack-app.git
 cd school-snack-app
 
 ```
