@@ -17,6 +17,11 @@ Antes de iniciar, certifique-se de ter instalado em sua máquina:
 ## 🛠️ Passo a Passo de Configuração
 
 ### 1. Clonar o Repositório
+Adicionar o caminho `C:\ProgramData\anaconda3\condabin` à Variável de Ambiente PATH
+
+---
+
+### 2. Clonar o Repositório
 
 Abra o terminal ou prompt de comando e execute:
 
@@ -27,7 +32,7 @@ cd school-snack-app
 
 ---
 
-### 2. Configurar e Executar o Backend (FastAPI + SQLite)
+### 3. Configurar e Executar o Backend (FastAPI + SQLite)
 
 O backend utiliza o **SQLite** como banco de dados principal. Não é necessário instalar nenhum banco de dados externo ou configurar chaves do Google Cloud. Na primeira execução, o arquivo `database.db` será gerado automaticamente na pasta `backend/` com alunos de teste pré-cadastrados.
 
@@ -56,7 +61,7 @@ O backend utiliza o **SQLite** como banco de dados principal. Não é necessári
 
 ---
 
-### 3. Configurar e Executar o Frontend (Aplicação Web)
+### 4. Configurar e Executar o Frontend (Aplicação Web)
 
 1. Abra uma **nova janela/aba de terminal** e navegue até a pasta `frontend/`:
    ```bash
