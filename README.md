@@ -1,6 +1,6 @@
 # 🍎 School Snack Pass (MVP)
 
-Aplicação web para controle e gestão da entrega de lanches escolares por meio do escaneamento de leitores de QR Code ou digitação manual de ID. O sistema utiliza **SQLite** como banco de dados local integrado, permitindo que a aplicação rode de forma ágil, segura e totalmente independente de serviços em nuvem para testes e desenvolvimento.
+Aplicação web para controle e gestão da entrega de lanches escolares por meio do escaneamento de leitores de QR Code ou digitação manual de ID. O sistema utiliza arquivos **CSV** (`students.csv` e `deliveries.csv`) como armazenamento local integrado, permitindo que a aplicação rode de forma ágil, simples e totalmente independente de serviços em nuvem, além de facilitar a visualização e edição direta dos dados em planilhas eletrônicas (LibreOffice Calc, Excel ou Google Sheets).
 
 ---
 
@@ -16,8 +16,9 @@ Antes de iniciar, certifique-se de ter instalado em sua máquina:
 
 ## 🛠️ Passo a Passo de Configuração
 
-### 1. Clonar o Repositório
-Adicionar o caminho `C:\ProgramData\anaconda3\condabin` à Variável de Ambiente PATH
+### 1. Configurar o PATH do Conda (Windows)
+Caso utilize Windows e o comando `conda` não seja reconhecido no terminal, adicione o seguinte caminho à Variável de Ambiente `PATH`:
+`C:\ProgramData\anaconda3\condabin`
 
 ---
 
@@ -32,9 +33,9 @@ cd school-snack-app
 
 ---
 
-### 3. Configurar e Executar o Backend (FastAPI + SQLite)
+### 3. Configurar e Executar o Backend (FastAPI + CSV)
 
-O backend utiliza o **SQLite** como banco de dados principal. Não é necessário instalar nenhum banco de dados externo ou configurar chaves do Google Cloud. Na primeira execução, o arquivo `database.db` será gerado automaticamente na pasta `backend/` com alunos de teste pré-cadastrados.
+O backend utiliza arquivos **CSV** locais para armazenar os dados. Não é necessário instalar nenhum banco de dados externo ou configurar chaves do Google Cloud. Na primeira execução, os arquivos `students.csv` (com alunos de teste pré-cadastrados) e `deliveries.csv` serão gerados automaticamente na pasta `backend/`.
 
 1. Abra o terminal e navegue até a pasta `backend/`:
    ```bash
@@ -100,10 +101,13 @@ Para testar o escaneamento de QR Code pela câmera de um smartphone conectado à
 
 ---
 
-## 🔍 Visualizando os Dados do SQLite
+## 📊 Visualizando e Editando os Dados (Arquivos CSV)
 
-Para abrir e inspecionar a tabela de entregas (`deliveries`) e de alunos (`students`) em formato de planilha:
+Os dados do sistema ficam armazenados diretamente na pasta `backend/` em dois arquivos de texto separados por vírgula e codificados em **UTF-8**:
 
-1. **DB Browser for SQLite (Gratuito / Desktop):** Baixe em [sqlitebrowser.org](https://sqlitebrowser.org/), abra o programa e selecione o arquivo `backend/database.db`.
-2. **SQLite Viewer (Web / Sem Instalação):** Acesse [sqliteviewer.app](https://sqliteviewer.app/) e arraste o arquivo `database.db` diretamente na página.
-3. **Extensão VS Code:** Instale a extensão **SQLite Viewer** (por *qwtel*) diretamente no VS Code para visualizar as tabelas do banco com um clique.
+* **`backend/students.csv`**: Lista de alunos cadastrados (`Student_ID,Full_Name,Grade,Status`). Você pode adicionar ou editar alunos diretamente neste arquivo, salvar e gerar os novos cartões com QR Code pelo botão na interface web.
+* **`backend/deliveries.csv`**: Histórico de entregas realizadas (`Delivery_ID,Date,Timestamp,Student_ID,Staff_User`).
+
+### Como abrir em planilhas eletrônicas:
+1. **LibreOffice Calc / Microsoft Excel:** Abra o arquivo `.csv` desejado selecionando a codificação **UTF-8** e o separador **Vírgula (`,`)**. *(Nota: no Windows, feche o arquivo `deliveries.csv` no Excel/Calc antes de realizar novas leituras no app para evitar bloqueio de escrita).*
+2. **Google Sheets:** Importe o arquivo `.csv` em qualquer planilha do Google Drive para visualizar ou compartilhar os relatórios online com a equipe escolar.
